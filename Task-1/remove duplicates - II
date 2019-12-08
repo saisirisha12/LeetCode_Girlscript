@@ -1,0 +1,40 @@
+Given a sorted linked list, delete all nodes that have duplicate numbers, leaving only distinct numbers from the original list.
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head==NULL || head->next==NULL)
+            return head;
+        ListNode* current = head;
+        ListNode* Head = new ListNode(0);
+        ListNode* newhead = Head;
+        while(current!=NULL)
+        {
+            if(current->next && current->val==current->next->val)
+            {
+                while(current && current->next && current->val==current->next->val)
+                {
+                    current = current->next;
+                }
+                current = current->next;
+            }
+            else
+            {
+                Head->next = new ListNode(current->val);
+                Head = Head->next;
+                current = current->next;
+            }
+        }
+        return newhead->next; 
+    }
+};
