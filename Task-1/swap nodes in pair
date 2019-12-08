@@ -1,0 +1,37 @@
+Given a linked list, swap every two adjacent nodes and return its head.
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+         if(!head || !head->next)
+            return head;
+        
+        ListNode *Head = new ListNode(0);          
+        Head->next = head;
+        ListNode *h = Head;
+        ListNode *p1 = head, *p2 = head->next; 
+        while(1) {
+            p1->next = p2->next;                          
+            p2->next = p1;
+            h->next = p2;
+            if(!p1->next || !p1->next->next)     
+                break;
+            else {
+                h = p1;
+                p2 = p1->next->next;
+                p1 = p1->next;
+            }  
+        }
+        return Head->next;
+    }
+};
