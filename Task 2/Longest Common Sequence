@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+int max(int a,int b);
+
+int lcs(char *X,char *Y,int M,int N)
+{
+    int L[M+1][N+1];
+    int i,j;
+    
+    for(i=0;i<=M;i++)
+    {
+        for(j=0;j<=N;j++)
+        {
+            if(i==0 || j==0)
+            {
+                L[i][j]=0;
+            }
+            else if(X[i-1]==Y[j-1])
+            {
+                L[i][j]=L[i-1][j-1]+1;
+            }
+            else 
+            {
+                L[i][j]= max(L[i-1][j],L[i][j-1]);
+            }
+        }
+    }
+    //cout<<L[m][n];
+    return L[M][N];
+}
+
+int max(int a,int b)
+{
+    if(a>b)
+    {
+        return a;
+    }
+    else
+        return b;
+}
+
+
+int main() {
+	int T;
+	cin>>T;
+	while(T!=0)
+	{
+	  int m,n;
+      cin>>m>>n;
+      char X[m],Y[n];
+	  for(int p=0;p<m;p++)
+	  {
+	     cin>>X[p];
+	  }
+	  for(int q=0;q<m;q++)
+	  {
+	     cin>>Y[q];
+	  }
+	  cout<<lcs(X,Y,m,n)<<endl;
+	  T--;
+	}
+	return 0;
+}
