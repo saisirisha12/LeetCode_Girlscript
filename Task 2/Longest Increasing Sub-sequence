@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+int max(int b[],int p);
+
+int Lis(int a[],int m)
+{
+    int lis[m];
+    int x;
+    lis[0]=1;
+    
+    for(int i=1;i<m;i++)
+    {
+        lis[i]=1;
+        for(int j=0;j<i;j++)
+        {
+            if(a[i]>a[j] && lis[i]<(lis[j]+1))
+            {
+                lis[i]=lis[j]+1;
+            }
+        }
+    }
+    x = max(lis,m);
+    return x;
+}
+
+int max(int b[],int p)
+{
+    int large = b[0];
+    for(int i=0;i<p;i++)
+    {
+        if(b[i]<b[i+1])
+        {
+            large = b[i+1];
+        }
+    }
+    return large;
+}
+
+int main() {
+    int T;
+    cin>>T;
+    while(T!=0)
+    {
+        int N;
+        cin>>N;
+        int arr[N];
+        for(int i=0;i<N;i++)
+        {
+            cin>>arr[i];
+        }
+        cout<<Lis(arr,N)<<endl;
+        T--;
+    }
+	return 0;
+}
