@@ -1,0 +1,49 @@
+#include <iostream>
+using namespace std;
+int max(int a, int b) 
+{ 
+    return (a > b)? a : b; 
+}
+
+int knapsack(int N,int W,int val[],int wt[])
+{
+    int w,n;
+    int K[N+1][W+1];
+    
+    for(n=0;n<=N;n++)
+    {
+        for(w=0;w<=W;w++)
+        {
+            if(n==0 || w==0)
+                K[n][w] = 0;
+            else if(wt[n-1]<=w)
+                K[n][w]= max(val[n-1]+K[n-1][w-wt[n-1]],K[n-1][w]);
+            else
+                K[n][w]=K[n-1][w];
+        }
+    }
+    return K[N][W];
+}
+
+int main() {
+	int T;
+	cin>>T;
+	while(T!=0)
+	{
+	    int N,W;
+	    cin>>N;
+	    cin>>W;
+	    int val[N],wt[N];
+	    for(int i=0;i<N;i++)
+	    {
+	        cin>>val[i];
+	    }
+	    for(int j=0;j<N;j++)
+	    {
+	        cin>>wt[j];
+	    }
+	    cout<<knapsack(N,W,val,wt)<<endl;
+	    T--;
+	}
+	return 0;
+}
